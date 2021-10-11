@@ -1,0 +1,35 @@
+server:
+  port: 8089    # 8092
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:abc123456@localhost:8761/eureka/
+  instance:
+    # 定义实例ID格式
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    # 采用IP注册
+    preferIpAddress: true
+    # 配合注册中心自我保护机制
+    # Eureka客户端向服务心跳的时间间隔是1s，默认是30秒
+    lease-renewal-interval-in-seconds: 1
+    # Eureka服务端在收到一次心跳后等待时间上限是2s，默认是90s，超时将剔除该微服务，其实Eureka服务端已经设置了，可能就是也告诉服务提供者一下
+    lease-expiration-duration-in-seconds: 2
+
+spring:
+  application:
+    name: login-client
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library_management_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: abc123456
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+# 开启 Feign 对 Hystrix 的支持
+#feign:
+#  hystrix:
+#    enabled: true

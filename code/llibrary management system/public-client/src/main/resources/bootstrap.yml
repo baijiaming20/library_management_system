@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: publicclient
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://localhost:8763
+
+server:
+  port: 8083
